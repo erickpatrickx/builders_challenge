@@ -1,0 +1,30 @@
+server:
+  port: ${PORT:8762}
+    
+spring:
+  application:
+    name: gateway
+  
+zuul:
+  sensitiveHeaders:
+  
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+     defaultZone: ${EUREKA_URI:http://discovery:8761/eureka/}
+     #defaultZone: ${EUREKA_URI:http://localhost:8761/eureka/}
+  instance:
+     preferIpAddress:true 
+
+hystrix:
+   command:
+      default:
+         execution:
+            timeout:
+               enabled: false
+ribbon:
+  ConnectTimeout:  20000
+  ReadTimeout:  20000
+  

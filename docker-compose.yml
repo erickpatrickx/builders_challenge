@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+
+ discovery:
+    build:
+      context: ./app_back_discovery
+      dockerfile: Dockerfile
+    image: discovery-server-image
+    ports:
+      - 8761:8761
+
+ gateway:
+    build:
+      context: ./app_back_gateway
+      dockerfile: Dockerfile
+    image: gateway-server-image
+    ports:
+      - 8762:8762
+    depends_on:
+      - discovery
+    env_file:
+      - .env
+ auth:
+    build:
+      context: ./app_back_auth
+      dockerfile: Dockerfile
+    image: auth-server-image
+    ports:
+      - 8888:8888
+    depends_on:
+      - discovery
+    env_file:
+      - .env
+ cliente:
+    build:
+      context: ./app_back_cliente
+      dockerfile: Dockerfile
+    image: cliente-server-image
+    ports:
+      - 8889:8889
+    depends_on:
+      - discovery
+    env_file:
+      - .env
+
